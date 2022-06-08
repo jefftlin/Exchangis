@@ -80,16 +80,20 @@ LINKIS_GATEWAY_HOST=
 #LINKIS_GATEWAY服务地址端口，用于查找linkis-mg-gateway服务         
 LINKIS_GATEWAY_PORT=       
 
-#用于请求校验数据源的 token ,该字段可在 linkis 表 linkis_mg_gateway_auth_token 的 token_name 字段获取
+#LINKIS_GATEWAY服务地址URL，由上面两部分组成 
+LINKIS_SERVER_URL=
+
+#用于请求校验 MySQL 服务的 token，该字段可在 linkis 安装目录的${LINKIST_INSTALLED_HOME}/conf/token.propertis中获取    
 DATASOURCE_TOKEN=
 
-#用于请求校验 linkis 服务的 token             
+#用于请求校验 linkis 服务的 token，该字段可在 linkis 安装目录的${LINKIST_INSTALLED_HOME}/conf/token.propertis中获取    
 LINKIS_TOKEN=
 
-EUREKA_INSTALL_IP=
+#Eureka服务端口
+EUREKA_PORT=
 
-EUREKA_INSTALL_PORT=
-
+#Eureka服务URL
+DEFAULT_ZONE=
 ```
 
 ### 2.4 修改数据库配置
@@ -100,7 +104,7 @@ EUREKA_INSTALL_PORT=
 
 ```shell script
 # 设置数据库的连接信息
-# 包括IP地址、数据库名称、用户名、端口
+# 包括IP地址、端口、用户名、密码和数据库名称
 MYSQL_HOST=
 MYSQL_PORT=
 MYSQL_USERNAME=
@@ -201,12 +205,6 @@ Exchangis 已默认提供了编译好的前端安装包，可直接下载使用�
             location /dist {
             root   /appcom/Install/exchangis/web; # Exchangis 前端部署目录
             autoindex on;
-            }
-            location / {
-            proxy_pass http://127.0.0.1:9020; # 后端Linkis的地址，需要修改
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection upgrade;
             }
 
             location /api {
